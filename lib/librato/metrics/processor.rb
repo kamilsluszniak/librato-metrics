@@ -42,9 +42,10 @@ module Librato
       def submit
         return true if self.empty?
         options = {per_request: @per_request}
-        if persister.persist(self.client, self.queued, options)
+        response = persister.persist(self.client, self.queued, options)
+        if response
           @last_submit_time = Time.now
-          clear and return true
+          clear and return response
         end
         false
       rescue ClientError

@@ -9,6 +9,7 @@ module Librato
         # Metrics web API.
         #
         def persist(client, queued, options={})
+          responses = []
           per_request = options[:per_request]
           if per_request
             requests = chunk_queued(queued, per_request)
@@ -24,8 +25,9 @@ module Librato
               end
             payload = SmartJSON.write(request)
             # expects 200
-            client.connection.post(resource, payload)
+            responses << client.connection.post(resource, payload)
           end
+          responses
         end
 
       private
