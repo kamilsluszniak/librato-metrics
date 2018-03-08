@@ -9,8 +9,6 @@ module Librato
           case env[:status]
           when 401
             raise Unauthorized.new(sanitized.to_s, sanitized)
-          when 403
-            raise Forbidden.new(sanitized.to_s, sanitized)
           when 404
             raise NotFound.new(sanitized.to_s, sanitized)
           when 422
